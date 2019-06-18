@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <script async id="MathJaxConfig" type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          showMathMenu:false,
+          delayStartupUntil: "none",
+          tex2jax: {
+            ignoreClass: "tex2jax_ignore",
+            inlineMath: [['$','$'], ['\\(','\\)']]
+          },
+    
+          jax: ["input/TeX", "output/SVG"],
+          extensions: ["tex2jax.js", "MathEvents.js"],
+          TeX: {
+              extensions: ["mhchem.js","noErrors.js", "noUndefined.js", "autoload-all.js"],
+              noErrors: { disabled: true }
+    
+          },
+          MathMenu: {
+              showRenderer: false
+          },
+          messageStyle: "none",
+          SVG: {
+              blacker: 0,
+              font: "Gyre-Pagella",
+              linebreaks: {
+                  automatic: true,
+                  width: "container"
+              },
+              scale: 100,
+              useFontCache: true,
+              useGlobalCache: true,
+              matchFontHeight: true
+          }
+      });
+
+
+    </script>
+
+    <script type="text/javascript" src="MathJax.js"></script>
+
+</head>
+
+<body>
+<div id="data">
+</div>
+</body>
+
+<script async>
+        document.getElementById('data').innerHTML = decodeURIComponent(location.search.substring(6));
+
+        MathJax.Hub.Queue(function () {
+            var height = document.getElementById('data').clientHeight;
+            onFinished.postMessage(height);
+        });
+</script>
+</html>
