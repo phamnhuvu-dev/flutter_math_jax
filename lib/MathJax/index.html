@@ -3,11 +3,13 @@
 <head>
     <script async id="MathJaxConfig" type="text/x-mathjax-config">
         MathJax.Hub.Config({
+          "fast-preview": {disabled:true},
+          showProcessingMessages: false,
           showMathMenu:false,
           delayStartupUntil: "none",
           tex2jax: {
             ignoreClass: "tex2jax_ignore",
-            inlineMath: [['$','$'], ['\\(','\\)']]
+            "preview": "none"
           },
     
           jax: ["input/TeX", "output/SVG"],
@@ -15,7 +17,7 @@
           TeX: {
               extensions: ["mhchem.js","noErrors.js", "noUndefined.js", "autoload-all.js"],
               noErrors: { disabled: true }
-    
+
           },
           MathMenu: {
               showRenderer: false
@@ -29,6 +31,10 @@
                   width: "container"
               },
               scale: 100,
+              EqnChunk: 50,
+              EqnChunkFactor: 1.5,
+              EqnChunkDelay: 100,
+              minScaleAdjust: 50,
               useFontCache: true,
               useGlobalCache: true,
               matchFontHeight: true
