@@ -66,9 +66,9 @@ class _StateMathJax extends State<MathJax> {
 
   @override
   void didUpdateWidget(MathJax oldWidget) {
-    super.didUpdateWidget(oldWidget);
     if (oldWidget.backgroundColor != widget.backgroundColor) {
       _changeBodyBackgroundColor();
     }
+    super.didUpdateWidget(oldWidget);
   }
 }
