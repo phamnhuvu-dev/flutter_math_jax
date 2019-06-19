@@ -27,24 +27,29 @@ class _StateMathJax extends State<MathJax> {
       opacity: opacity,
       child: SizedBox(
         height: height,
-        child: WebView(
-          key: widget.key,
-          initialUrl:
-              "${mathJaxServer.baseUrl}?data=${Uri.encodeComponent(widget.teXHTML)}",
-          onPageFinished: (message) {},
-          javascriptMode: JavascriptMode.unrestricted,
-          javascriptChannels: Set.of(<JavascriptChannel>[
-            JavascriptChannel(
-              name: 'onFinished',
-              onMessageReceived: (JavascriptMessage message) {
-                print(DateTime.now().millisecondsSinceEpoch - time1);
-                setState(() {
-                  height = (double.parse(message.message) + 2) + 15;
-                  opacity = 1.0;
-                });
-              },
-            )
-          ]),
+        child: IgnorePointer(
+          child: WebView(
+            key: widget.key,
+            initialUrl:
+                "${mathJaxServer.baseUrl}?data=${Uri.encodeComponent(widget.teXHTML)}",
+            javascriptMode: JavascriptMode.unrestricted,
+            javascriptChannels: Set.of(
+              <JavascriptChannel>[
+                JavascriptChannel(
+                  name: 'onFinished',
+                  onMessageReceived: (JavascriptMessage message) {
+                    print(DateTime.now().millisecondsSinceEpoch - time1);
+                    setState(
+                      () {
+                        height = (double.parse(message.message) + 2) + 15;
+                        opacity = 1.0;
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
