@@ -13,7 +13,7 @@ class MathJax extends StatefulWidget {
   State<MathJax> createState() => _StateMathJax();
 }
 
-class _StateMathJax extends State<MathJax> {
+class _StateMathJax extends State<MathJax> with AutomaticKeepAliveClientMixin {
   WebViewController controller;
   double opacity = 0.0;
   double height = 1.0;
@@ -71,4 +71,7 @@ class _StateMathJax extends State<MathJax> {
     }
     super.didUpdateWidget(oldWidget);
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
