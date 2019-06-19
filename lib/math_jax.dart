@@ -46,14 +46,8 @@ class _StateMathJax extends State<MathJax> {
                   name: 'onFinished',
                   onMessageReceived: (JavascriptMessage message) {
                     print(DateTime.now().millisecondsSinceEpoch - time1);
-                    Future.delayed(Duration(milliseconds: 500), () {
-                      setState(
-                        () {
-                          height = (double.parse(message.message) + 2) + 15;
-                          opacity = 1.0;
-                        },
-                      );
-                    });
+                    height = (double.parse(message.message) + 2) + 15;
+                    opacity = 1.0;
                   },
                 ),
               ],
