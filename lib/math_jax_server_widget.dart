@@ -36,10 +36,14 @@ class StateMathJaxServerWidget extends State<MathJaxServerWidget> {
   @override
   void initState() {
     super.initState();
+    _voidStartServer();
+  }
+
+  void _voidStartServer() {
     int port = 9450;
-    baseUrl = "http://localhost:$port/packages/flutter_math_jax/MathJax/index.html";
     server = Server(port: port);
     server.start();
+    baseUrl = "http://localhost:$port/packages/flutter_math_jax/MathJax/index.html";
   }
 
   @override

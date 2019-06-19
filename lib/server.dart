@@ -1,18 +1,22 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:mime/mime.dart';
-
+import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
+import 'package:mime/mime.dart';
 
 class Server {
+  final List<String> contentHtmlType = ['text', 'html'];
+  final String charset = 'utf-8';
+  final String splitSymbol = '/';
+  final String html = 'index.html';
 
   HttpServer _server;
   bool _isStarted = false;
 
   int _port;
 
-  Server({int port = 18080}) {
+  Server({int port = 1080}) {
     this._port = port;
   }
 
@@ -29,7 +33,7 @@ class Server {
     if (this._server != null) {
       throw Exception('Server already started on http://localhost:$_port');
     }
-    var completer = new Completer();
+    Completer completer = Completer();
 
     if (_isStarted) return completer.future;
 
@@ -40,10 +44,10 @@ class Server {
         this._server = server;
 
         server.listen((HttpRequest request) async {
-          var body = List<int>();
-          var path = request.requestedUri.path;
-          path = (path.startsWith('/')) ? path.substring(1) : path;
-          path += (path.endsWith('/')) ? 'index.html' : '';
+          List<int> body = List();
+          String path = request.requestedUri.path;
+          path = (path.startsWith(splitSymbol)) ? path.substring(1) : path;
+          path += (path.endsWith(splitSymbol)) ? html : '';
 
           try {
             body = (await rootBundle.load(path)).buffer.asUint8List();
@@ -52,17 +56,20 @@ class Server {
             request.response.close();
             return;
           }
-          var contentType = ['text', 'html'];
-          var mimeType = lookupMimeType(
+
+          List<String> contentType;
+          String mimeType = lookupMimeType(
             request.requestedUri.path,
             headerBytes: body,
           );
           if (mimeType != null) {
-            contentType = mimeType.split('/');
+            contentType = mimeType.split(splitSymbol);
+          } else {
+            contentType = contentHtmlType;
           }
 
           request.response.headers.contentType =
-          new ContentType(contentType[0], contentType[1], charset: 'utf-8');
+              ContentType(contentType[0], contentType[1], charset: charset);
           request.response.add(body);
           request.response.close();
         });

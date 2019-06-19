@@ -15,7 +15,7 @@
           jax: ["input/TeX", "output/SVG"],
           extensions: ["tex2jax.js", "MathEvents.js"],
           TeX: {
-              extensions: ["mhchem.js","noErrors.js", "noUndefined.js", "autoload-all.js"],
+              extensions: ["mhchem.js"],
               noErrors: { disabled: true }
 
           },
@@ -31,10 +31,6 @@
                   width: "container"
               },
               scale: 100,
-              EqnChunk: 50,
-              EqnChunkFactor: 1.5,
-              EqnChunkDelay: 100,
-              minScaleAdjust: 50,
               useFontCache: true,
               useGlobalCache: true,
               matchFontHeight: true
@@ -49,6 +45,7 @@
 </head>
 
 <body>
+<style>* {margin: 0; overflow: hidden}</style>
 <div id="data">
 </div>
 </body>
