@@ -4,10 +4,12 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class MathJax extends StatefulWidget {
   final String teXHTML;
+  final VoidCallback onFinished;
 
   const MathJax({
     Key key,
     this.teXHTML,
+    this.onFinished,
   }) : super(key: key);
 
   @override
@@ -40,10 +42,13 @@ class _StateMathJax extends State<MathJax> {
               JavascriptChannel(
                 name: 'onFinished',
                 onMessageReceived: (JavascriptMessage message) {
-                  print('Time ${DateTime.now().millisecondsSinceEpoch - time1}');
+                  print(
+                      'Time ${DateTime.now().millisecondsSinceEpoch - time1}');
                   setState(() {
                     height = double.parse(message.message) * 1.1;
                   });
+
+                  widget.onFinished();
                 },
               ),
             ],
