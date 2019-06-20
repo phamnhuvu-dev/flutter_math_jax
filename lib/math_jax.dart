@@ -45,10 +45,10 @@ class _StateMathJax extends State<MathJax> {
                   print(
                       'Time ${DateTime.now().millisecondsSinceEpoch - time1}');
                   setState(() {
+                    widget.onFinished();
                     height = double.parse(message.message) * 1.1;
                   });
 
-                  widget.onFinished();
                 },
               ),
             ],
