@@ -51,7 +51,7 @@ class _StateMathJax extends State<MathJax> {
                           .now()
                           .millisecondsSinceEpoch - time1}');
                   setState(() {
-                    height = double.parse(message.message);
+                    height = double.parse(message.message) + 16.0;
                     visible = true;
                   });
                   if (widget.onFinished != null) widget.onFinished();
